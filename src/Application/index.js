@@ -1,1 +1,1 @@
-export { default } from './Application.connector';
+export { default } from './App.connector';

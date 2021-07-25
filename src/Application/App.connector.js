@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import Application from './Application';
+import Application from './App';
 
 import { authOperations } from 'redux/auth';
 
