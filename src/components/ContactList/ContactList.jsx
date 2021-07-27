@@ -1,7 +1,9 @@
-import { TransitionGroup } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from '@material-ui/core';
+
+import ContactItem from 'components/ContactListItem';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -28,10 +30,26 @@ const ContactList = ({ contacts, contactListRef, onDelete }) => {
 
   return (
     <section id="contacts" className={classes.contacts} ref={contactListRef}>
-      <TransitionGroup
-        component={List}
-        className={classes.list}
-      ></TransitionGroup>
+      <TransitionGroup component={List} className={classes.list}>
+        {contacts.map(({ id, name, number }) => {
+          const contactItemRef = React.createRef();
+          return (
+            <CSSTransition
+              key={id}
+              timeout={250}
+              appear={true}
+              nodeRef={contactItemRef}
+            >
+              <ContactItem
+                name={name}
+                number={number}
+                cssRef={contactItemRef}
+                onDelete={() => onDelete(id)}
+              />
+            </CSSTransition>
+          );
+        })}
+      </TransitionGroup>
     </section>
   );
 };
